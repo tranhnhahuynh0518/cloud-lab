@@ -53,6 +53,26 @@ function App() {
     }
   };
 
+  // --- PHẦN MỚI THÊM: HÀM XÓA SINH VIÊN ---
+  const handleDelete = async (id) => {
+    // Hiện bảng hỏi xác nhận trước khi xóa
+    if (!window.confirm('Bạn có chắc chắn muốn xóa dữ liệu này không?')) return;
+    
+    try {
+      const response = await fetch(`/api/students/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        fetchStudents(); // Cập nhật lại danh sách ngay lập tức sau khi xóa
+      } else {
+        alert('Có lỗi xảy ra khi xóa!');
+      }
+    } catch (error) {
+      console.error('Lỗi khi gọi API xóa:', error);
+    }
+  };
+
   return (
     <div style={{ padding: '30px', fontFamily: 'Arial, sans-serif' }}>
       <h2>Quản lý Sinh viên (MERN Stack)</h2>
@@ -84,6 +104,8 @@ function App() {
             <th>MSSV</th>
             <th>Họ Tên</th>
             <th>Email</th>
+            {/* --- PHẦN MỚI THÊM: CỘT THAO TÁC --- */}
+            <th style={{ width: '80px', textAlign: 'center' }}>Thao tác</th>
           </tr>
         </thead>
         <tbody>
@@ -92,11 +114,21 @@ function App() {
               <td>{student.studentId}</td>
               <td>{student.name}</td>
               <td>{student.email}</td>
+              {/* --- PHẦN MỚI THÊM: NÚT XÓA --- */}
+              <td style={{ textAlign: 'center' }}>
+                <button 
+                  onClick={() => handleDelete(student._id)} 
+                  style={{ backgroundColor: '#ff4d4f', color: 'white', border: 'none', padding: '5px 10px', cursor: 'pointer', borderRadius: '4px' }}
+                >
+                  Xóa
+                </button>
+              </td>
             </tr>
           ))}
           {students.length === 0 && (
             <tr>
-              <td colSpan="3" style={{ textAlign: 'center' }}>Chưa có sinh viên nào.</td>
+              {/* Đã sửa colSpan từ 3 thành 4 vì bảng bây giờ có 4 cột */}
+              <td colSpan="4" style={{ textAlign: 'center' }}>Chưa có sinh viên nào.</td>
             </tr>
           )}
         </tbody>
