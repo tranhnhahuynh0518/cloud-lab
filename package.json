@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "mongoose": "^9.9.3"
-  },
-  "scripts": {
-    "start": "node mern-demo/server/server.js"
-  }
-}
