@@ -1,0 +1,19 @@
+services:
+  mern-backend:
+    image: trannhahuynh0518/mern-backend:1.0
+    container_name: mern-backend-hub
+    ports:
+      - "5000:5000"
+    environment:
+      MONGODB_URI: ${MONGODB_URI}
+      PORT: 5000
+
+  mern-frontend:
+    image: trannhahuynh0518/mern-frontend:2.0
+
+    container_name: mern-frontend-hub
+
+    ports:
+      - "5173:5173"
+    depends_on:
+      - mern-backend
