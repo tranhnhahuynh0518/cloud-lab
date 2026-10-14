@@ -4,11 +4,31 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+// Danh sách Frontend được phép truy cập
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  'http://localhost:5173',
+  'http://localhost:3000'
+].filter(Boolean);
+
+// CORS cho môi trường Production
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    return callback(null, false);
+  },
+  credentials: true
+}));
+
 app.use(express.json());
+
 
 // Kết nối MongoDB Atlas
 mongoose.connect(process.env.MONGODB_URI)
