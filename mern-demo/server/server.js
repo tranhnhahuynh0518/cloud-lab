@@ -122,7 +122,19 @@ app.delete("/api/students/:id", async (req, res) => {
 });
 
 
+//
+// HEALTH CHECK ENDPOINT - LAB 06
+//
+app.get('/health', (req, res) => {
+    res.status(200).json({
+        status: 'UP',
+        timestamp: new Date().toISOString(),
+        uptime: process.uptime()
+    });
+});
+
 // Khởi động Server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+  console.log("MERN Backend v1.2 - Auto Deploy Test");
 });

@@ -186,9 +186,19 @@ function App() {
         fontFamily: 'Arial, sans-serif',
       }}
     >
-      <h2 style={{ textAlign: 'center' }}>
-        Quản lý Sinh viên (MERN Stack)
-      </h2>
+<h2 style={{ textAlign: 'center' }}>
+  Quản lý Sinh viên (MERN Stack)
+</h2>
+<p
+  style={{
+    color: '#22c55e',
+    fontSize: '13px',
+    marginTop: '4px',
+    textAlign: 'center',
+  }}
+>
+  Production v2.0 | Cloud Computing Lab 06
+</p>
 
       {/* =========================
           FORM THÊM / SỬA
